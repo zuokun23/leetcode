@@ -1,42 +1,61 @@
-#include <iostream>
-#include <vector>
-
-using namespace std;
-
-// 283. Move Zeroes
-// https://leetcode.com/problems/move-zeroes/description/
-//
-// 原地(in place)解决该问题
-// 时间复杂度: O(n)
-// 空间复杂度: O(1)
+//1
 class Solution {
 public:
-    void moveZeroes(vector<int>& nums) {
-
-        int k = 0; // nums中, [0...k)的元素均为非0元素
-
-        // 遍历到第i个元素后,保证[0...i]中所有非0元素
-        // 都按照顺序排列在[0...k)中
-        // 同时, [k...i] 为 0
-        for(int i = 0 ; i < nums.size() ; i ++)
-            if(nums[i])
-                if(k != i)
-                    swap(nums[k++] , nums[i]);
-                else
-                    k ++;
+    int removeElement(vector<int>& nums, int val) {
+        int i = 0,j = -1;//[0,j]保存!=val元素，i用来遍历数组
+        
+        for(;i < nums.size() ; i++){
+            if(nums[i] != val)
+                nums[++j] = nums[i];
+        }
+        return j+1;
     }
 };
 
-int main() {
-
-    int arr[] = {0, 1, 0, 3, 12};
-    vector<int> vec(arr, arr + sizeof(arr) / sizeof(int));
-
-    Solution().moveZeroes(vec);
-
-    for(int i = 0 ; i < vec.size() ; i ++)
-        cout << vec[i] << " ";
-    cout << endl;
-
-    return 0;
-}
+//2
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int i = 0,j = 0;//[0,j）保存!=val元素，i用来遍历数组
+        
+        for(;i < nums.size() ; i++){
+            if(nums[i] != val)
+                nums[j++] = nums[i];
+        }
+        return j;
+    }
+};
+//3
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int i = 0,j = 0;//[0,j）
+        
+        for(;i < nums.size() ; i++){
+            if(nums[i] != val){
+                if(i != j)//增加此判断来处理特殊数组：全部元素!=val时，不过耗时反而增加...
+                    nums[j++] = nums[i];
+                else
+                    j++;
+            }
+        }
+        return j;
+    }
+};
+//4
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int i = 0,j = 0;
+        
+        for(;i < nums.size() ; i++){
+            if(nums[i] != val){
+                if(i != j)
+                    swap(nums[j++],nums[i]);//最后结果中[j,nums.size())元素值均=val，本题没做这个要求
+                else
+                    j++;
+            }
+        }
+        return j;
+    }
+};
