@@ -43,3 +43,34 @@ public:
     }
 };
 //3二分搜索
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& numbers, int target){
+        
+        for(int i = 0 ; i < numbers.size() ; i++){
+            int p = binarySearch(numbers , i+1 , numbers.size()-1 ,target - numbers[i]);
+            if(p != -1){
+                int ret[2] = {i+1 , p+1};
+                return vector<int>(ret , ret + 2 );
+            }else
+                continue;
+        }
+            
+    }
+    
+    int binarySearch(vector<int>& numbers , int l ,int r ,int t){
+        
+        //[l , r]
+        while( l <= r){
+            int mid = l + (r-l)/2;
+            if(numbers[mid] == t )
+                return mid;
+            else if(numbers[mid] < t)
+                l = mid +1;
+            else
+                r = mid -1;
+        }
+        return -1;
+        
+    }
+};
