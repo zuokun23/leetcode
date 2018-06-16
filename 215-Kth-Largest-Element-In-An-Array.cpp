@@ -12,13 +12,16 @@ public:
     
     int quickSort(vector<int>& nums ,int l ,int r ,int t ){
         
+        if( l == r )//因为l==r时是不能进行partition的
+            return nums[l];
+        
         int p = partition(nums ,l ,r );
         if(t == p)
             return nums[p];
         else if(t < p)
-            quickSort(nums , l ,p-1 , t);
+            return quickSort(nums , l ,p-1 , t);
         else
-            quickSort(nums, p+1 , r ,t);
+            return quickSort(nums, p+1 , r ,t);
     }
 
     int partition(vector<int>& nums ,int l ,int r){
@@ -33,6 +36,7 @@ public:
         return j;
     }
 };
+
 
 //2非递归
 class Solution {
