@@ -12,9 +12,9 @@ public:
         int i = 0,j = sz - 1;
         while(true){
             
-            while(i <= sz-1 && !isValid(s[i])) i++;
-            while(j >= 0 && !isValid(s[j])) j--;
-            if(i >= j) //只进行一次边界判断
+            while(i <= sz-1 && !isValid(s[i])) i++;//
+            while(j >= 0 && !isValid(s[j])) j--;//
+            if(i >= j) //只进行三次边界判断，更容易理解，且终止条件在while内，[i,i]含一个字符串时为回文,条件判断不能为==
                 return true;      
             if(s[i] == s[j] || s[i] >= 'A' && s[i] <= 'Z' && s[j] == s[i] + 32 || s[j] >= 'A' && s[j] <= 'Z' && s[i] == s[j] + 32){
                 i++;
