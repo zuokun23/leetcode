@@ -42,7 +42,7 @@ private:
     bool hasCommon(int freq_s[] , int freq_t[]){
         
         for(int i = 0 ; i <= 127 ; i++)
-            if(freq_t[i] != 0 && freq_t[i] > freq_s[i])//注意这里是> 
+            if(freq_t[i] > freq_s[i])//注意这里是> 
                 return false;
         
         return true;
