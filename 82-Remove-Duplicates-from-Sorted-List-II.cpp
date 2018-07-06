@@ -45,27 +45,28 @@ public:
 class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
-        if(!head) return head;
-        ListNode *pHead = new ListNode(0), *p=pHead, *q;
-        pHead->next = head;
-        int val = head->val;
-        while(p)
-        {
+        
+        ListNode* dummyHead = new ListNode(0);
+        dummyHead->next = head;
+        ListNode *p=dummyHead , *q;
+        
+        while(p){//要删除p后面的结点数目
+            
             q = p->next;
-            if(q && q->next && q->val == q->next->val)
-            {
+            if(q && q->next && q->val == q->next->val){//删除两个或以上
+                
                 int val = q->val;
-                while(q && q->val == val)
-                {
+                while(q && q->val == val){//删除操作
                     p->next = q->next;
                     delete q;
                     q = p->next;
                 }
-            }
-            else p = p->next;
+            }else//删除零个
+                p = p->next;
         }
-        head = pHead->next;
-        delete pHead;
+        
+        head = dummyHead->next;
+        delete dummyHead;
         return head;
     }
 };
