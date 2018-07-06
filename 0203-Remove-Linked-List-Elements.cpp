@@ -16,11 +16,11 @@ public:
         //如果头节点的值要删除时
         //if(head->val == val){
         //    ListNode* delNode = head;
-        //    head = had->next;
+        //    head = head->next;
         //    delete delNode;
         //}
         while(head != NULL && head->val == val){//陷阱1：可能新head的值要删除,用while 陷阱2：可能新的head==NULL,不能访问其值
-            ListNode* delNode = head;
+            ListNodne* delNode = head;
             head = head->next;
             delete delNode;
         }
@@ -37,7 +37,7 @@ public:
                 ListNode* delNode = cur->next;
                 cur->next = delNode->next;
                 delete delNode;
-                //很多语言不需要释放内存
+                //很多语言不需要手动释放内存
                 //delNode->next = NULL;这样系统知道这些节点没有用，系统自动释放内存
             }else
                 cur = cur->next;
