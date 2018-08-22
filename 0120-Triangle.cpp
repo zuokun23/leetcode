@@ -12,7 +12,7 @@ public:
         return pathSum(0,0,triangle,triangle.size());
     }
 };
-//改进，记忆化搜索，依然超时
+//改进，记忆化搜索
 class Solution {
 
 private:
@@ -22,10 +22,13 @@ public:
         
         if(i == size-1)
             return triangle[i][j];
-        if(dp[i+1][j] != -1 && dp[i+1][j+1] != -1)
-		    return min(dp[i+1][j] , dp[i+1][j+1]) + triangle[i][j];
-	    return min(pathSum(i+1 , j , triangle , size) , pathSum(i+1 , j+1 , triangle , size)) + triangle[i][j];
-    }
+        if(dp[i][j] != -1)
+	    return dp[i][j];
+	else{
+	    dp[i][j] = min(pathSum(i+1 , j , triangle , size) , pathSum(i+1 , j+1 , triangle , size)) + triangle[i][j];
+            return dp[i][j];
+	}
+	}
     int minimumTotal(vector<vector<int>>& triangle) {
         dp = vector<vector<int>>(triangle.size() , vector<int>(triangle.size() , -1)) ;
         return pathSum(0,0,triangle,triangle.size());
