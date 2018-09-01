@@ -1,3 +1,35 @@
+//dp，状态含义是以i结尾，就是i处必偷
+class Solution {
+
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        //特判
+        if(n == 0)
+            return 0;
+        //状态
+        vector<int> dp = vector<int>(n , -1);//dp[i]以i结尾偷得最多财产
+        //边界
+        for(int i = 0 ; i < n ; i++)
+            dp[i] = nums[i];
+        
+        //状态转移方程
+        for(int i = 1 ; i < n ; i++){
+            //dp[i]
+            for(int j = 0 ; j <= i-2 ; j++)//以偷i处+偷以j结尾
+                dp[i] = max(dp[i] , nums[i] + (j>=0 ? dp[j]:0));//j-2小心越界,从[0..j]的钱 + 在i处抢的钱
+        }
+        
+        int max = -1 , ans; 
+        for(int i = 0 ; i < n ; i++)
+            if(dp[i] > max){
+                max = dp[i];
+                ans = i;
+            }    
+        
+        return dp[ans];
+    }
+};
 //递归解，但超时
 class Solution {
 
